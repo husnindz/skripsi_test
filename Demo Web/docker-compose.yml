@@ -1,0 +1,13 @@
+services:
+  aethermed-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aethermed_demo
+    ports:
+      - "7860:7860"
+    environment:
+      - PORT=7860
+    volumes:
+      - ./models:/app/models
+    restart: unless-stopped
