@@ -168,6 +168,16 @@ export default function ParametersTable({ formData }) {
           </tbody>
         </table>
       </div>
+
+      {/* Clinical Reference Citation Footer */}
+      <div className="px-6 py-3.5 bg-[#EDFBFF] border-t border-[#AFAFAF]/20 text-[11px] font-poppins text-[#5C7076] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+        <span>
+          <strong>Standar Rujukan Medis:</strong> ACC/AHA (2019), ADA Diabetes Care (2023), KDIGO CKD (2022), WHO (2011), Harrison's Principles of Internal Medicine.
+        </span>
+        <span className="shrink-0 text-slate-400">
+          Sinkron dengan backend AI
+        </span>
+      </div>
     </div>
   );
 }
