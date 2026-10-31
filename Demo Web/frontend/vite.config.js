@@ -11,15 +11,15 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/predict': {
-        target: 'http://localhost:8005',
+        target: 'http://localhost:8000',
         changeOrigin: true,
       },
       '/ai-recommendations': {
-        target: 'http://localhost:8005',
+        target: 'http://localhost:8000',
         changeOrigin: true,
       },
       '/health': {
-        target: 'http://localhost:8005',
+        target: 'http://localhost:8000',
         changeOrigin: true,
       },
     },
