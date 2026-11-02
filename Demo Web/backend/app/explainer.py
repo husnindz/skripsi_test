@@ -51,7 +51,7 @@ class ConformerExplainer:
         X_tensor = torch.tensor(X_numpy, dtype=torch.float32, device=self.device)
         with torch.no_grad():
             logits = self.model(X_tensor)
-            probs = torch.softmax(logits, dim=1)
+            probs = torch.softmax(logits / 2.5, dim=1)
         return probs.detach().cpu().numpy()
 
     def explain_sample(

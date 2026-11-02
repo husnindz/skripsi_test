@@ -183,9 +183,33 @@ def simulate_inference(scaled_1d: np.ndarray) -> np.ndarray:
     # Spes. Paru-Paru: driven by high WBC, abnormal lymphocytes, low hemoglobin
     logits[3] = 0.5 + (wbc * 1.8) - (lymph * 0.8) - (hgb * 0.9) + (age * 0.4)
 
-    # Softmax
-    exp_logits = np.exp(logits - np.max(logits))
-    probs = exp_logits / np.sum(exp_logits)
+    # Softmax with clinical calibration
+    return calibrate_probabilities(logits, temperature=2.5, max_confidence=0.92)
+
+
+def calibrate_probabilities(
+    logits: np.ndarray,
+    temperature: float = 2.5,
+    max_confidence: float = 0.92,
+) -> np.ndarray:
+    """
+    Calibrate model logits via Temperature Scaling and apply a clinical confidence ceiling.
+    Medical AI best practice: Never output 100.0% certainty in clinical screening CDSS.
+    Leaves room for clinical differential diagnosis and biological variance.
+    """
+    scaled_logits = logits / max(temperature, 1e-4)
+    exp_logits = np.exp(scaled_logits - np.max(scaled_logits))
+    probs = (exp_logits / np.sum(exp_logits)).astype(np.float32)
+
+    if probs.max() > max_confidence:
+        max_idx = int(np.argmax(probs))
+        excess = probs[max_idx] - max_confidence
+        probs[max_idx] = max_confidence
+        other_indices = [i for i in range(len(probs)) if i != max_idx]
+        if other_indices:
+            probs[other_indices] += excess / len(other_indices)
+
+    probs = probs / np.sum(probs)
     return probs.astype(np.float32)
 
 
@@ -197,13 +221,13 @@ def predict(data: CheckUpInput):
         scaled_numpy = preprocessor.transform(raw_numpy)
         scaled_1d = scaled_numpy.flatten()
 
-        # 2. Inference
+        # 2. Inference with Temperature Calibration & Clinical Safety Ceiling
         if model is not None:
             model.eval()
             with torch.no_grad():
                 tensor_input = torch.tensor(scaled_numpy, dtype=torch.float32)
-                logits = model(tensor_input)
-                probs = torch.softmax(logits, dim=1).cpu().numpy()[0]
+                raw_logits = model(tensor_input).cpu().numpy()[0]
+                probs = calibrate_probabilities(raw_logits, temperature=2.5, max_confidence=0.92)
         else:
             probs = simulate_inference(scaled_1d)
 

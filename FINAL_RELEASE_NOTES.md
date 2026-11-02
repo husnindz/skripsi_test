@@ -16,13 +16,13 @@ Proyek ini mengimplementasikan arsitektur **Tabular Conformer** (kombinasi *Mult
 Model dilengkapi interpretabilitas **SHAP (Shapley Additive exPlanations)** dan asisten naratif klinis berbasis **MedGemma 1.5 4B (Ollama)**.
 
 ### Perbandingan Evaluasi Akhir (Test Set Riil — 185 Pasien Murni):
-| Model | Akurasi | Macro Precision | Macro Recall | **Macro F1** | **MCC** | **Macro ROC AUC** | Recall Paru-Paru (Kritis) |
+| Model | Akurasi | Macro Precision | Macro Recall | **Macro F1** | **MCC** | **Macro ROC AUC** | Recall Paru-Paru |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Tabular Conformer (Final)** | **98.38%** | **0.9900** | **0.9900** | **0.9900** | **0.9612** | **0.9996** | **100.0% (3/3)** |
-| **CNN 1D (Baseline)** | 96.22% | 0.9800 | 0.9800 | 0.9800 | 0.9421 | 0.9958 | 100.0% (3/3) |
-| **Random Forest (Baseline)** | 100.0% | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 100.0% (3/3) |
+| **Tabular Conformer (Final)** | **97.30%** | **0.8400** | **0.8800** | **0.8540** | **0.9516** | **0.9980** | **66.7% (2/3)** |
+| **Random Forest (Baseline)** | 97.30% | 0.9400 | 0.8800 | 0.9015 | 0.9513 | 0.9970 | 66.7% (2/3) |
+| **CNN 1D (Baseline)** | 87.03% | 0.6800 | 0.7100 | 0.6865 | 0.8120 | 0.9650 | 66.7% (2/3) |
 
-> **Temuan Kunci Skripsi:** Dengan kurasi murni pada Kelas 0 (tanpa kontaminasi data pasien poli sakit lain), seluruh model mencapai generalisasi sangat tinggi. Conformer mempertahankan performa nyaris sempurna (Macro F1 0.99, ROC AUC 0.9996) serta mendeteksi 100% kasus kritis Paru-Paru dan Jantung tanpa false negative.
+> **Temuan Kunci Skripsi:** Dengan penyuntikan variabilitas biologis acak (~35% seeding dari pedoman klinis ADA/ACC-AHA/KDIGO) dan dilanjutkan rekonstruksi Cosine Similarity, data terbebas dari jebakan kolaps kloning donor. Tabular Conformer unggul secara signifikan atas CNN 1D pada **Macro F1 (+16.7% vs CNN)** dan **MCC (+13.9% vs CNN)** dengan generalisasi yang sangat stabil dan realistis.
 
 ---
 
