@@ -1,0 +1,31 @@
+{
+  "feature_order": [
+    "JENIS_KELAMIN",
+    "UMUR_TAHUN",
+    "cholesterol total",
+    "creatinin",
+    "fbs",
+    "rbs",
+    "hgb",
+    "lymfosit%",
+    "mch",
+    "mchc",
+    "mcv",
+    "ureum",
+    "wbc"
+  ],
+  "target_names": {
+    "0": "Sehat / Tidak Ada Indikasi",
+    "1": "Jantung dan Pembuluh Darah",
+    "2": "Spes. Penyakit Dalam",
+    "3": "Spes. Paru-Paru"
+  },
+  "num_features": 13,
+  "num_classes": 4,
+  "d_model": 64,
+  "num_heads": 4,
+  "num_layers": 2,
+  "ffn_dim": 128,
+  "conv_kernel_size": 3,
+  "dropout": 0.1
+}

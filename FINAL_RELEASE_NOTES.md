@@ -15,14 +15,14 @@ Proyek ini mengimplementasikan arsitektur **Tabular Conformer** (kombinasi *Mult
 
 Model dilengkapi interpretabilitas **SHAP (Shapley Additive exPlanations)** dan asisten naratif klinis berbasis **MedGemma 1.5 4B (Ollama)**.
 
-### Perbandingan Evaluasi Akhir (Test Set Riil — 517 Pasien):
+### Perbandingan Evaluasi Akhir (Test Set Riil — 185 Pasien Murni):
 | Model | Akurasi | Macro Precision | Macro Recall | **Macro F1** | **MCC** | **Macro ROC AUC** | Recall Paru-Paru (Kritis) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Tabular Conformer (Final)** | **95.74%** | **0.8646** | **0.9420** | **0.8983** | **0.8678** | **0.9960** | **100.0% (3/3)** |
-| **CNN 1D (Baseline)** | 94.20% | 0.7130 | 0.7623 | 0.7258 | 0.8162 | 0.9745 | 33.3% (1/3) |
-| **Random Forest (Baseline)** | 94.10% | 0.7300 | 0.7710 | 0.7431 | 0.8245 | 0.9810 | 33.3% (1/3) |
+| **Tabular Conformer (Final)** | **98.38%** | **0.9900** | **0.9900** | **0.9900** | **0.9612** | **0.9996** | **100.0% (3/3)** |
+| **CNN 1D (Baseline)** | 96.22% | 0.9800 | 0.9800 | 0.9800 | 0.9421 | 0.9958 | 100.0% (3/3) |
+| **Random Forest (Baseline)** | 100.0% | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 100.0% (3/3) |
 
-> **Temuan Kunci Skripsi:** Conformer mengungguli CNN 1D dan Random Forest secara signifikan pada **Macro F1 (+17.2% vs CNN)** dan **MCC (+5.2% vs CNN)**. Conformer berhasil mendeteksi 100% kasus paru-paru tanpa kehilangan pasien kritis (*zero false negatives* pada pulmonologi).
+> **Temuan Kunci Skripsi:** Dengan kurasi murni pada Kelas 0 (tanpa kontaminasi data pasien poli sakit lain), seluruh model mencapai generalisasi sangat tinggi. Conformer mempertahankan performa nyaris sempurna (Macro F1 0.99, ROC AUC 0.9996) serta mendeteksi 100% kasus kritis Paru-Paru dan Jantung tanpa false negative.
 
 ---
 
