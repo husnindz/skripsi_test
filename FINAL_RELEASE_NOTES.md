@@ -29,8 +29,12 @@ Model dilengkapi interpretabilitas **SHAP (Shapley Additive exPlanations)** dan 
 ## 2. Pembaruan dan Penyempurnaan Teknis
 
 ### A. Preprocessing & Integritas Data (`merge_DocLab_imputed.csv`)
-* **Total Sampel Bersih:** 3.445 data pasien murni (Sehat: 2.812, Jantung: 52, Penyakit Dalam: 561, Paru-Paru: 20).
-* **Missing & Zero Values:** 0.00% missing values dan 0.00% nilai biologis nol fisiologis pada seluruh 12 parameter laboratorium.
+* **Kurasi Presisi Kelas 0 (Klinis Murni):** Menghilangkan bias `fillna(0)` pada unit non-target. Kelas 0 didefinisikan secara ketat hanya dari:
+  1. Pasien skrining lab mandiri yang tidak pernah melakukan kunjungan konsultasi dokter spesialis (562 pasien).
+  2. Pasien yang mengunjungi dokter murni untuk pemeriksaan kesehatan umum, vaksinasi, atau medical check-up tanpa keluhan penyakit (ICD-10 Z00–Z02, Poli Vaksin, MCU - 34 pasien).
+  3. Pasien dari poli non-target dengan keluhan morbiditas akut (UGD trauma, infeksi akut, hemodialisis, bedah) dikeluarkan dari dataset agar Kelas 0 tidak terkontaminasi penyakit lain.
+* **Total Sampel Bersih:** 1.229 data pasien murni (Sehat / MCU: 596, Jantung: 52, Penyakit Dalam: 561, Paru-Paru: 20).
+* **Missing & Zero Values:** 0.00% missing values dan 0.00% nilai biologis nol fisiologis pada seluruh 11 parameter laboratorium dan umur.
 * **Integrasi Referensi Pulmonologi:** 10 data referensi klinis paru-paru dimasukkan secara natural pada tabel dokter dan lab.
 
 ### B. Notebook Model & Evaluasi
@@ -84,3 +88,4 @@ Project_Conformer/
 ---
 
 *Disusun untuk keperluan Sidang Skripsi & Dokumentasi Akademik.*
+
