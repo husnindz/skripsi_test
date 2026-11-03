@@ -22,8 +22,6 @@ Model dilengkapi interpretabilitas **SHAP (Shapley Additive exPlanations)** dan 
 | **Random Forest (Baseline)** | 97.30% | 0.9400 | 0.8800 | 0.9015 | 0.9513 | 0.9970 | 66.7% (2/3) |
 | **CNN 1D (Baseline)** | 87.03% | 0.6800 | 0.7100 | 0.6865 | 0.8120 | 0.9650 | 66.7% (2/3) |
 
-> **Temuan Kunci Skripsi:** Dengan penyuntikan variabilitas biologis acak (~35% seeding dari pedoman klinis ADA/ACC-AHA/KDIGO) dan dilanjutkan rekonstruksi Cosine Similarity, data terbebas dari jebakan kolaps kloning donor. Tabular Conformer unggul secara signifikan atas CNN 1D pada **Macro F1 (+16.7% vs CNN)** dan **MCC (+13.9% vs CNN)** dengan generalisasi yang sangat stabil dan realistis.
-
 ---
 
 ## 2. Pembaruan dan Penyempurnaan Teknis
